@@ -43,7 +43,14 @@ Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan mengguna
     ```
     Prompt terminal Anda akan berubah, menandakan Anda sekarang berada di dalam container.
 
-2.  **Jalankan File Latihan Python**:
+2.  **Alur Kerja Development**:
+    **PENTING**: Alur kerja yang efisien adalah sebagai berikut:
+    -   **Edit Kode:** Gunakan editor teks favorit Anda (misal: VS Code, Sublime) di komputer utama (**host**) untuk mengubah file `.py`.
+    -   **Jalankan Kode:** Beralih ke terminal **sandbox** (container) untuk menjalankan file Python yang sudah diubah.
+    
+    Berkat `volume mounting` (`-v`), setiap kali Anda menyimpan file di host, perubahannya akan langsung tersedia di dalam container. Anda **tidak perlu** melakukan `docker build` ulang.
+
+3.  **Jalankan File Latihan Python**:
     Di dalam container, jalankan file latihan yang relevan.
     ```bash
     # Cek isi direktori
@@ -53,7 +60,7 @@ Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan mengguna
     python 01_data_types_and_structures.py
     ```
 
-3.  **Keluar dari Sandbox**:
+4.  **Keluar dari Sandbox**:
     Jika sudah selesai, ketik `exit` dan tekan Enter.
 
 ### Bagian 3: Manajemen Lingkungan

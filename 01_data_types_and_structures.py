@@ -135,7 +135,7 @@ print("\n===== Bekerja dengan List of Dictionaries ====")
 print("Looping melalui daftar produk:")
 
 # Looping untuk memproses setiap produk
-total_stok = 0
+total_stok = 10
 for produk in daftar_produk:
     # 'produk' di sini adalah sebuah dictionary
     nama = produk['name']
