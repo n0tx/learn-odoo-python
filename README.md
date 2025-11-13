@@ -5,40 +5,46 @@ Repository ini adalah catatan perjalanan dan ruang kerja untuk mempelajari funda
 ## Struktur Proyek
 
 - `Dockerfile`: Mendefinisikan lingkungan Python kita.
-- `docker-compose.yml`: Mengatur dan menghubungkan layanan aplikasi Python dan database PostgreSQL.
+- `docker-compose.yml`: (Tidak digunakan saat ini karena masalah kompatibilitas) Mengatur layanan.
 - `*.py`: File-file latihan Python, diurutkan berdasarkan nomor untuk diikuti secara bertahap.
 - `README.md`: File ini, berisi panduan dan catatan.
 
-## Panduan Setup & Menjalankan Latihan
+## Panduan Setup & Menjalankan Latihan (Metode Manual)
 
-Dengan Docker Compose, prosesnya menjadi lebih sederhana.
+Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan menggunakan perintah `docker` manual. Perintah ini memerlukan `sudo`.
 
 ### Bagian 1: Setup Awal (Sekali Jalan)
 
-1.  **Konfigurasi Git (Lakukan di Mesin Host Anda)**:
-    Jika belum, konfigurasikan nama dan email Anda:
+1.  **Buat Jaringan Docker**:
+    Buat jaringan virtual agar kontainer aplikasi dan database bisa berkomunikasi.
     ```bash
-    git config --global user.name "n0tx"
-    git config --global user.email "rcandra91@msn.com"
+    sudo docker network create odoo-learn-net
     ```
 
-2.  **Jalankan Lingkungan Docker Compose**:
-    Dari direktori root proyek, perintah ini akan membangun image (jika belum ada) dan menjalankan semua layanan (aplikasi Python & database) di background.
+2.  **Jalankan Kontainer Database PostgreSQL**:
+    Jalankan kontainer database di latar belakang dan pastikan datanya persisten.
     ```bash
-    docker-compose up -d
+    sudo docker run -d --name odoo-db --network odoo-learn-net -v odoo-db-data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=odoo -e POSTGRES_USER=odoo -e POSTGRES_DB=postgres postgres:13
+    ```
+
+3.  **Build & Jalankan Kontainer Aplikasi Python**:
+    Bangun image dari `Dockerfile` dan jalankan kontainer aplikasi.
+    ```bash
+    sudo docker build -t odoo-learn-env .
+    sudo docker run -d --name odoo-sandbox --network odoo-learn-net -v "/home/zerobyte365/learn-odoo-python:/usr/src/app" odoo-learn-env tail -f /dev/null
     ```
 
 ### Bagian 2: Siklus Belajar (Ulangi Sesuai Kebutuhan)
 
 1.  **Masuk ke Dalam Sandbox (Container Aplikasi)**:
-    Untuk memulai sesi belajar, masuk ke dalam shell container `odoo` yang sedang berjalan.
+    Untuk memulai sesi belajar, masuk ke dalam shell container `odoo-sandbox`.
     ```bash
-    docker-compose exec odoo /bin/bash
+    sudo docker exec -it odoo-sandbox /bin/bash
     ```
     Prompt terminal Anda akan berubah, menandakan Anda sekarang berada di dalam container.
 
 2.  **Jalankan File Latihan Python**:
-    Di dalam container, Anda bisa melihat semua file proyek. Jalankan file latihan yang relevan.
+    Di dalam container, jalankan file latihan yang relevan.
     ```bash
     # Cek isi direktori
     ls -l
@@ -48,16 +54,29 @@ Dengan Docker Compose, prosesnya menjadi lebih sederhana.
     ```
 
 3.  **Keluar dari Sandbox**:
-    Jika sudah selesai, ketik `exit` dan tekan Enter untuk kembali ke terminal mesin host Anda.
+    Jika sudah selesai, ketik `exit` dan tekan Enter.
+
+### Bagian 3: Manajemen Lingkungan
+
+-   **Mematikan Kontainer**:
+    Untuk menghentikan kedua kontainer (aplikasi dan database):
     ```bash
-    exit
+    sudo docker stop odoo-sandbox odoo-db
     ```
 
-4.  **Mematikan Lingkungan**:
-    Jika Anda ingin mematikan seluruh layanan (aplikasi dan database) untuk menghemat resource, jalankan dari mesin host:
+-   **Menyalakan Kontainer Kembali**:
+    Untuk menyalakan kembali kontainer yang sudah ada:
     ```bash
-    docker-compose down
+    sudo docker start odoo-sandbox odoo-db
     ```
-    Untuk menyalakannya lagi nanti, cukup jalankan kembali `docker-compose up -d`.
+
+-   **Membersihkan (Hapus Semuanya)**:
+    **PERHATIAN:** Perintah ini akan menghapus kontainer, jaringan, dan volume data database Anda secara permanen.
+    ```bash
+    sudo docker stop odoo-sandbox odoo-db
+    sudo docker rm odoo-sandbox odoo-db
+    sudo docker network rm odoo-learn-net
+    sudo docker volume rm odoo-db-data
+    ```
 ---
 *Dokumen ini dibuat dan diperbarui secara kolaboratif dengan Gemini.*
