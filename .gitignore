@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-wheel-metadata/
+.eggs/
+*.egg-info/
+*.egg
+
+# Docker
+.dockerignore
+docker-compose.yml
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
