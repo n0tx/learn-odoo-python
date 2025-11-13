@@ -4,48 +4,36 @@ Repository ini adalah catatan perjalanan dan ruang kerja untuk mempelajari funda
 
 ## Struktur Proyek
 
-- `Dockerfile`: Mendefinisikan lingkungan belajar kita yang terisolasi menggunakan Docker. Ini memastikan kita memiliki environment yang konsisten dengan Python dan tools yang dibutuhkan.
+- `Dockerfile`: Mendefinisikan lingkungan Python kita.
+- `docker-compose.yml`: Mengatur dan menghubungkan layanan aplikasi Python dan database PostgreSQL.
 - `*.py`: File-file latihan Python, diurutkan berdasarkan nomor untuk diikuti secara bertahap.
 - `README.md`: File ini, berisi panduan dan catatan.
 
 ## Panduan Setup & Menjalankan Latihan
 
-Proses ini dibagi menjadi dua bagian: setup awal (hanya dilakukan sekali) dan siklus belajar harian.
+Dengan Docker Compose, prosesnya menjadi lebih sederhana.
 
 ### Bagian 1: Setup Awal (Sekali Jalan)
 
 1.  **Konfigurasi Git (Lakukan di Mesin Host Anda)**:
-    Sebelum melakukan push pertama, konfigurasikan nama dan email Anda. Jalankan perintah ini di terminal Anda:
+    Jika belum, konfigurasikan nama dan email Anda:
     ```bash
     git config --global user.name "n0tx"
     git config --global user.email "rcandra91@msn.com"
     ```
 
-2.  **Push Commit Pertama ke GitHub**:
-    Setelah file-file awal dibuat, simpan pekerjaan Anda ke GitHub.
+2.  **Jalankan Lingkungan Docker Compose**:
+    Dari direktori root proyek, perintah ini akan membangun image (jika belum ada) dan menjalankan semua layanan (aplikasi Python & database) di background.
     ```bash
-    git push -u origin main
-    ```
-
-3.  **Build Image Docker**:
-    Dari direktori root proyek (`learn-odoo-python`), bangun image Docker yang akan menjadi sandbox kita.
-    ```bash
-    docker build -t odoo-learn-env .
-    ```
-
-4.  **Jalankan Container Docker**:
-    Jalankan container dari image yang baru saja dibuat. Container ini akan berjalan di background.
-    ```bash
-    # Perintah ini memasang direktori saat ini ke /usr/src/app di dalam container
-    docker run -d --name odoo-sandbox -v "$(pwd):/usr/src/app" odoo-learn-env
+    docker-compose up -d
     ```
 
 ### Bagian 2: Siklus Belajar (Ulangi Sesuai Kebutuhan)
 
-1.  **Masuk ke Dalam Sandbox (Container)**:
-    Untuk memulai sesi belajar, masuk ke dalam shell container yang sedang berjalan.
+1.  **Masuk ke Dalam Sandbox (Container Aplikasi)**:
+    Untuk memulai sesi belajar, masuk ke dalam shell container `odoo` yang sedang berjalan.
     ```bash
-    docker exec -it odoo-sandbox /bin/bash
+    docker-compose exec odoo /bin/bash
     ```
     Prompt terminal Anda akan berubah, menandakan Anda sekarang berada di dalam container.
 
@@ -65,14 +53,11 @@ Proses ini dibagi menjadi dua bagian: setup awal (hanya dilakukan sekali) dan si
     exit
     ```
 
-4.  **Mematikan Container**:
-    Jika Anda ingin mematikan sandbox untuk menghemat resource, jalankan dari mesin host:
+4.  **Mematikan Lingkungan**:
+    Jika Anda ingin mematikan seluruh layanan (aplikasi dan database) untuk menghemat resource, jalankan dari mesin host:
     ```bash
-    docker stop odoo-sandbox
+    docker-compose down
     ```
-    Untuk menyalakannya lagi nanti:
-    ```bash
-    docker start odoo-sandbox
-    ```
+    Untuk menyalakannya lagi nanti, cukup jalankan kembali `docker-compose up -d`.
 ---
 *Dokumen ini dibuat dan diperbarui secara kolaboratif dengan Gemini.*

@@ -13,7 +13,6 @@ pip-wheel-metadata/
 
 # Docker
 .dockerignore
-docker-compose.yml
 
 # IDEs and editors
 .vscode/
