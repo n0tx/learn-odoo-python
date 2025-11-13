@@ -4,7 +4,7 @@ Repository ini adalah catatan perjalanan dan ruang kerja untuk mempelajari funda
 
 ## Struktur Proyek
 
-- `Dockerfile`: Mendefinisikan lingkungan Python kita.
+- `Dockerfile`: Mendefinisikan lingkungan Python kita (sekarang termasuk library `psycopg2` untuk koneksi database).
 - `docker-compose.yml`: (Tidak digunakan saat ini karena masalah kompatibilitas) Mengatur layanan.
 - `*.py`: File-file latihan Python, diurutkan berdasarkan nomor untuk diikuti secara bertahap.
 - `README.md`: File ini, berisi panduan dan catatan.
@@ -24,7 +24,7 @@ Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan mengguna
 2.  **Jalankan Kontainer Database PostgreSQL**:
     Jalankan kontainer database di latar belakang dan pastikan datanya persisten.
     ```bash
-    sudo docker run -d --name odoo-db --network odoo-learn-net -v odoo-db-data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=odoo -e POSTGRES_USER=odoo -e POSTGRES_DB=postgres postgres:13
+    sudo docker run -d --name odoo-db --network odoo-learn-net -v odoo-db-data:/var/lib/postgresql/data -e POSTGR_PASSWORD=odoo -e POSTGR_USER=odoo -e POSTGR_DB=postgres postgres:13
     ```
 
 3.  **Build & Jalankan Kontainer Aplikasi Python**:
@@ -48,22 +48,36 @@ Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan mengguna
     -   **Edit Kode:** Gunakan editor teks favorit Anda (misal: VS Code, Sublime) di komputer utama (**host**) untuk mengubah file `.py`.
     -   **Jalankan Kode:** Beralih ke terminal **sandbox** (container) untuk menjalankan file Python yang sudah diubah.
     
-    Berkat `volume mounting` (`-v`), setiap kali Anda menyimpan file di host, perubahannya akan langsung tersedia di dalam container. Anda **tidak perlu** melakukan `docker build` ulang.
+    Berkat `volume mounting` (`-v`), setiap kali Anda menyimpan file di host, perubahannya akan langsung tersedia di dalam container.
 
 3.  **Jalankan File Latihan Python**:
     Di dalam container, jalankan file latihan yang relevan.
     ```bash
-    # Cek isi direktori
-    ls -l
-
     # Jalankan file latihan pertama
     python 01_data_types_and_structures.py
+
+    # Jalankan file latihan kedua
+    python 02_database_connection.py
     ```
 
 4.  **Keluar dari Sandbox**:
     Jika sudah selesai, ketik `exit` dan tekan Enter.
 
 ### Bagian 3: Manajemen Lingkungan
+
+-   **Memperbarui Lingkungan (Jika Dockerfile Berubah)**:
+    Jika Anda memodifikasi `Dockerfile` (misalnya untuk menambah library baru), Anda perlu membangun ulang image dan mengganti container lama:
+    ```bash
+    # 1. Bangun ulang image dengan perubahan baru
+    sudo docker build -t odoo-learn-env .
+
+    # 2. Hentikan dan hapus container lama
+    sudo docker stop odoo-sandbox
+    sudo docker rm odoo-sandbox
+
+    # 3. Jalankan container baru dari image yang sudah diperbarui
+    sudo docker run -d --name odoo-sandbox --network odoo-learn-net -v "/home/zerobyte365/learn-odoo-python:/usr/src/app" odoo-learn-env tail -f /dev/null
+    ```
 
 -   **Mematikan Kontainer**:
     Untuk menghentikan kedua kontainer (aplikasi dan database):
