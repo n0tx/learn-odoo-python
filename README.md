@@ -58,6 +58,9 @@ Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan mengguna
 
     # Jalankan file latihan kedua
     python 02_database_connection.py
+
+    # Jalankan file latihan ketiga
+    python 03_functions_and_classes.py
     ```
 
 4.  **Keluar dari Sandbox**:
