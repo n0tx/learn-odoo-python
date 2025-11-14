@@ -78,6 +78,9 @@ Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan mengguna
 
     # Jalankan file latihan kedelapan (menghapus record)
     python 08_deleting_records.py
+
+    # Jalankan file latihan kesembilan (relasi Many2one)
+    python 09_relational_fields_many2one.py
     ```
 
 4.  **Keluar dari Sandbox**:
