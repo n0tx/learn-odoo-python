@@ -8,6 +8,7 @@ Repository ini adalah catatan perjalanan dan ruang kerja untuk mempelajari funda
 - `docker-compose.yml`: (Tidak digunakan saat ini karena masalah kompatibilitas) Mengatur layanan.
 - `*.py`: File-file latihan Python, diurutkan berdasarkan nomor untuk diikuti secara bertahap.
 - `04_pengenalan_odoo_model.py`: Latihan pengenalan konsep Odoo Model (ORM) melalui simulasi.
+- `05_creating_records_orm.py`: Latihan membuat data (Create) menggunakan metode ORM.
 - `README.md`: File ini, berisi panduan dan catatan.
 
 ## Panduan Setup & Menjalankan Latihan (Metode Manual)
@@ -65,6 +66,9 @@ Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan mengguna
 
     # Jalankan file latihan keempat (simulasi Odoo Model)
     python 04_pengenalan_odoo_model.py
+
+    # Jalankan file latihan kelima (membuat record)
+    python 05_creating_records_orm.py
     ```
 
 4.  **Keluar dari Sandbox**:
