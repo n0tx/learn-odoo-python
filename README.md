@@ -75,6 +75,9 @@ Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan mengguna
 
     # Jalankan file latihan ketujuh (memperbarui record)
     python 07_updating_records.py
+
+    # Jalankan file latihan kedelapan (menghapus record)
+    python 08_deleting_records.py
     ```
 
 4.  **Keluar dari Sandbox**:
