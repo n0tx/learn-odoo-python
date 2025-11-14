@@ -69,6 +69,9 @@ Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan mengguna
 
     # Jalankan file latihan kelima (membuat record)
     python 05_creating_records_orm.py
+
+    # Jalankan file latihan keenam (membaca dan mencari record)
+    python 06_reading_and_searching_records.py
     ```
 
 4.  **Keluar dari Sandbox**:
