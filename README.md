@@ -81,6 +81,9 @@ Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan mengguna
 
     # Jalankan file latihan kesembilan (relasi Many2one)
     python 09_relational_fields_many2one.py
+
+    # Jalankan file latihan kesepuluh (relasi One2many)
+    python 10_relational_fields_one2many.py
     ```
 
 4.  **Keluar dari Sandbox**:
