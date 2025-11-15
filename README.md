@@ -12,6 +12,7 @@ Repository ini adalah catatan perjalanan dan ruang kerja untuk mempelajari funda
 - `11_relational_fields_many2many.py`: Latihan yang menjelaskan relasi Many2many, di mana banyak record dari satu model dapat terhubung ke banyak record di model lain (contoh: mahasiswa dan mata kuliah).
 - `12_business_methods.py`: Latihan yang menunjukkan cara menambahkan logika bisnis ke model melalui metode kustom (contoh: mengonfirmasi pesanan penjualan).
 - `13_computed_fields.py`: Latihan yang menjelaskan field yang dihitung (computed fields), di mana nilainya dihasilkan secara dinamis oleh fungsi Python, bukan disimpan di database.
+- `14_constraints.py`: Latihan yang menunjukkan cara menambahkan aturan validasi data (constraints) untuk mencegah penyimpanan data yang tidak valid.
 - `README.md`: File ini, berisi panduan dan catatan.
 
 ## Panduan Setup & Menjalankan Latihan (Metode Manual)
@@ -96,6 +97,9 @@ Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan mengguna
 
     # Jalankan file latihan ketiga belas (computed fields)
     python 13_computed_fields.py
+
+    # Jalankan file latihan keempat belas (constraints)
+    python 14_constraints.py
     ```
 
 4.  **Keluar dari Sandbox**:
