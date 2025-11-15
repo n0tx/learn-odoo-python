@@ -9,6 +9,7 @@ Repository ini adalah catatan perjalanan dan ruang kerja untuk mempelajari funda
 - `*.py`: File-file latihan Python, diurutkan berdasarkan nomor untuk diikuti secara bertahap.
 - `04_pengenalan_odoo_model.py`: Latihan pengenalan konsep Odoo Model (ORM) melalui simulasi.
 - `05_creating_records_orm.py`: Latihan membuat data (Create) menggunakan metode ORM.
+- `11_relational_fields_many2many.py`: Latihan yang menjelaskan relasi Many2many, di mana banyak record dari satu model dapat terhubung ke banyak record di model lain (contoh: mahasiswa dan mata kuliah).
 - `README.md`: File ini, berisi panduan dan catatan.
 
 ## Panduan Setup & Menjalankan Latihan (Metode Manual)
@@ -84,6 +85,9 @@ Karena adanya masalah kompatibilitas dengan `docker-compose`, kita akan mengguna
 
     # Jalankan file latihan kesepuluh (relasi One2many)
     python 10_relational_fields_one2many.py
+
+    # Jalankan file latihan kesebelas (relasi Many2many)
+    python 11_relational_fields_many2many.py
     ```
 
 4.  **Keluar dari Sandbox**:
